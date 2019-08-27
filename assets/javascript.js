@@ -1,14 +1,14 @@
-var config = {
-    apiKey: "",
-    authDomain: "watercap-654bc.firebaseapp.com",
-    databaseURL: "https://watercap-654bc.firebaseio.com",
-    projectId: "watercap-654bc",
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyAsnXr9Dt0-vKVqLrqdWR8nYMXZTOD6hek",
+    authDomain: "learn-d1639.firebaseapp.com",
+    databaseURL: "https://learn-d1639.firebaseio.com",
+    projectId: "learn-d1639",
     storageBucket: "",
-    messagingSenderId: "462797256810",
-    appId: "1:462797256810:web:cb043d72400f5713"
+    messagingSenderId: "146908920295",
+    appId: "1:146908920295:web:c16e34818ee4bf5c"
 };
-
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 $("#add-employee").on("click", function (event) {
@@ -33,15 +33,15 @@ $("#add-employee").on("click", function (event) {
     })
 });
 
-database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", function(snapshot) {
-//database.ref().on("child_added", function (snapshot) {
+database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", function (snapshot) {
+    //database.ref().on("child_added", function (snapshot) {
     var sv = snapshot.val();
     var empStart = moment.unix(sv.startDate).format("MM/DD/YYYY");
     console.log(empStart);
     var tname = $("<td>").text(sv.name);
     var trole = $("<td>").text(sv.role);
     var tStartDate = $("<td>").text(empStart);
-    var tMonthsWorked = $("<td>").text(moment().diff(moment(empStart, "X"), "months")*-1);
+    var tMonthsWorked = $("<td>").text(moment().diff(moment(empStart, "X"), "months") * -1);
     var tMonthlyRate = $("<td>").text(sv.monthlyRate);
     var tTotalBilled = $("<td>").text(moment().diff(moment(empStart, "X"), "months") * -1 * sv.monthlyRate);
     var trow = $("<tr>");
