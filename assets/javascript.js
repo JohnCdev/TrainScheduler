@@ -11,43 +11,42 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-$("#add-employee").on("click", function (event) {
+$("#add-train").on("click", function (event) {
     event.preventDefault();
 
     var name = $("#name-input").val().trim();
-    var role = $("#role-input").val().trim();
-    var startDate = moment($("#startDate-input").val().trim(), "MM/DD/YYYY").format("X");
-    var monthlyRate = $("#monthlyRate-input").val().trim();
+    var destination = $("#destination-input").val().trim();
+    var first = moment($("#first-input").val().trim(), "HH:mm").format("X");
+    var frequency = $("#frequency-input").val().trim();
 
     $("#name-input").val("");
-    $("#role-input").val("");
-    $("#startDate-input").val("");
-    $("#monthlyRate-input").val("");
-
+    $("#destination-input").val("");
+    $("#first-input").val("");
+    $("#frequency-input").val("");
     database.ref().push({
         name: name,
-        role: role,
-        startDate: startDate,
-        monthlyRate: monthlyRate,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+        destination: destination,
+        first: first,
+        frequency: frequency,
     })
 });
 
 database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", function (snapshot) {
     //database.ref().on("child_added", function (snapshot) {
-    var sv = snapshot.val();
-    var empStart = moment.unix(sv.startDate).format("MM/DD/YYYY");
-    console.log(empStart);
+    var sv = snapshot.val( );
+    var trainStart = moment.unix(sv.first).format("HH:mm");
+    var convertedStart = moment(trainStart, "HH:mm").subtract(1, "years");
     var tname = $("<td>").text(sv.name);
-    var trole = $("<td>").text(sv.role);
-    var tStartDate = $("<td>").text(empStart);
-    var tMonthsWorked = $("<td>").text(moment().diff(moment(empStart, "X"), "months") * -1);
-    var tMonthlyRate = $("<td>").text(sv.monthlyRate);
-    var tTotalBilled = $("<td>").text(moment().diff(moment(empStart, "X"), "months") * -1 * sv.monthlyRate);
+    var tdest = $("<td>").text(sv.destination);
+    var tfrequency = $("<td>").text(sv.frequency);
+    var diff = moment().diff(moment(convertedStart), 'minutes');
+    var remainder = diff % sv.frequency;
+    var nextTrainMin = sv.frequency - remainder;
+    var nextTrainArrival = moment().add(nextTrainMin, "minutes");
+    var tnextArrival = $("<td>").text(moment(nextTrainArrival).format("HH:mm"));
+    var tminutesAway = $("<td>").text(nextTrainMin);
     var trow = $("<tr>");
-    trow.append(tname, trole, tStartDate, tMonthsWorked, tMonthlyRate, tTotalBilled);
+    trow.append(tname, tdest, tfrequency, tnextArrival, tminutesAway);
     $("tbody").append(trow);
 
 });
-
-
