@@ -31,7 +31,7 @@ $("#add-train").on("click", function (event) {
     })
 });
 
-database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", function (snapshot) {
+database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function (snapshot) {
     //database.ref().on("child_added", function (snapshot) {
     var sv = snapshot.val( );
     var trainStart = moment.unix(sv.first).format("HH:mm");
@@ -50,3 +50,12 @@ database.ref().orderByChild("dateAdded").limitToLast(2).on("child_added", functi
     $("tbody").append(trow);
 
 });
+
+window.onload = function () {
+    $("#time").text(moment().format("HH:mm"));
+    setInterval(currentTime, 1000);
+};
+
+function currentTime() {
+    $("#time").text(moment().format("HH:mm"));
+}

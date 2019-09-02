@@ -1,7 +1,10 @@
-body {
-    
+.jumbotron {
+    padding-bottom: 30px;
 }
 
-.jumbotron {
-    text-align: center;
+.timer {
+    padding-top: 10px;
+    font-weight: bold;
+    align-content: flex-end;
+    float: right;
 }

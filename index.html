@@ -8,15 +8,16 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
 
     <div class="container">
 
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid rounded text-center">
             <div class="container">
-                <h1 class="display-4">Train Time</h1>
+                <h1 class="display-4"><strong>Train Time</strong></h1>
                 <p class="lead">A Comprehensive Listing of Train Times
                 </p>
             </div>
@@ -24,7 +25,7 @@
 
         <div class="card mt-3">
             <div class="card-header">
-                <strong>Current Train Schedule</strong>
+                <strong>Current Train Schedule</strong><div class="timer"><span>Current Time: </span><span id="time"></span></div>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -42,7 +43,6 @@
                 </table>
             </div>
         </div>
-
 
         <div class="card mt-3">
             <div class="card-header">
